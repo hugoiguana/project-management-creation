@@ -23,3 +23,12 @@
 hs_err_pid*
 
 /target
+*.idea
+
+effective.pom
+.factorypath
+
+# Eclipse
+/.settings
+*.classpath
+*.project
