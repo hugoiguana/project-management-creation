@@ -1,8 +1,16 @@
 package com.hugo.mota.projectmanagementcreation.domain;
 
-import lombok.*;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.NoArgsConstructor;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 
-import javax.persistence.*;
+import javax.persistence.AttributeOverride;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Table;
+import javax.persistence.PrePersist;
 
 @Getter
 @Setter
@@ -10,23 +18,17 @@ import javax.persistence.*;
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "pmc_user")
+@Table(name = "pmc_user_system")
 @AttributeOverride(name = "id", column = @Column(name = "id"))
-public class UserEntity extends PersistEntity {
-
-    @Column(name = "name", nullable = false)
-    private String name;
+public class UserSystemEntity extends PersistEntity {
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "cpf", nullable = false)
-    private String cpf;
-
     @Column(name = "password", nullable = false)
     private String password;
 
-    @Column(name = "profile")
+    @Column(name = "profile", nullable = false)
     private Integer profile;
 
     @PrePersist
