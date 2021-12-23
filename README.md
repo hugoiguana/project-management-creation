@@ -20,3 +20,11 @@ curl --request POST \
 
 > docker-compose up -d --build 
 
+
+**Keycloak commands:**
+```javascript
+Add an admin user via keycloak script:
+$ docker exec -it project-management-keycloak /opt/jboss/keycloak/bin/add-user-keycloak.sh -u admin -p admin
+$ docker container restart project-management-keycloak
+http://localhost:8085/auth/admin
+```

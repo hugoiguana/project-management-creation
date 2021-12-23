@@ -5,10 +5,10 @@ import lombok.Getter;
 @Getter
 public enum ProfileEnum {
 
-    USER_CREATION(1, "ROLE_USER_CREATION"),
-    USER_VIEWER(2, "ROLE_USER_VIEWER"),
-    USER_APPROVER(3, "ROLE_USER_APPROVER"),
-    USER_ADMIN(3, "ROLE_USER_APPROVER");
+    USER_CREATION(1, "CREATION"),
+    USER_VIEWER(2, "VIEWER"),
+    USER_APPROVER(3, "APPROVER"),
+    USER_ADMIN(3, "ADMIN");
 
     private int code;
     private String role;

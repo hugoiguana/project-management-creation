@@ -7,7 +7,7 @@ services:
         image: mysql
         command: --default-authentication-plugin=mysql_native_password
         container_name: project-management-creation-db-my-sql
-        restart: always
+      #restart: always
         environment:
           MYSQL_ROOT_PASSWORD: root
           MYSQL_DATABASE: project-management-creation
@@ -15,4 +15,53 @@ services:
           MYSQL_PASSWORD: 123456789
         ports:
           - "3306:3306"
+        #volumes:
+        #  - ./.docker/dbdata:/var/lib/mysql
+
+
+    project-management-aprovation-db-my-sql:
+      image: mysql
+      command: --default-authentication-plugin=mysql_native_password
+      container_name: project-management-aprovation-db-my-sql
+      #restart: always
+      environment:
+        MYSQL_ROOT_PASSWORD: root
+        MYSQL_DATABASE: project-management-aprovation
+        MYSQL_USER: project-management-aprovation
+        MYSQL_PASSWORD: 123456789
+      ports:
+        - "3307:3306"
+
+    project-management-keycloak-db-postgres:
+      image: postgres
+      container_name: project-management-keycloak-db-postgres
+      volumes:
+        - ./.docker/postgres_data:/var/lib/postgresql/data
+      environment:
+        POSTGRES_DB: project-management-keycloak
+        POSTGRES_USER: project-management-keycloak
+        POSTGRES_PASSWORD: 123456789
+      ports:
+        - "5432:5432"
+
+
+    project-management-keycloak:
+      image: jboss/keycloak
+      container_name: project-management-keycloak
+      #restart: always
+      environment:
+        DB_VENDOR: postgres
+        DB_ADDR: project-management-keycloak-db-postgres
+        DB_PORT: 5432
+        DB_SCHEMA: public
+        DB_USER: project-management-keycloak
+        DB_PASSWORD: 123456789
+        DB_DATABASE: project-management-keycloak
+        #- KEYCLOACK_USER=admin
+        #- KEYCLOACK_PASSWORD=admin
+      ports:
+        - "8085:8080"
+      depends_on:
+        - project-management-keycloak-db-postgres
+
 
