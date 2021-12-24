@@ -37,6 +37,9 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     private Environment env;
 
     @Autowired
+    private JWTUtil jwtUtil;
+
+    @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
         KeycloakAuthenticationProvider keycloakAuthenticationProvider = new KeycloakAuthenticationProvider();
         keycloakAuthenticationProvider.setGrantedAuthoritiesMapper(new SimpleAuthorityMapper());
@@ -67,7 +70,7 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 .anyRequest().authenticated();
                 //.anyRequest().permitAll();
 
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager()));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil));
     }
 
     /*@Autowired
