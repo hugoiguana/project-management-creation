@@ -9,4 +9,7 @@ public class ObjectNotFoundException extends RuntimeException {
         super(msg);
     }
 
+    public ObjectNotFoundException(String msg, String args) {
+        super(String.format(msg, args));
+    }
 }

@@ -1,4 +1,4 @@
-package com.hugo.mota.projectmanagementcreation.domain;
+package com.hugo.mota.projectmanagementcreation.entity.mysql;
 
 import lombok.Getter;
 

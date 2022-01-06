@@ -1,5 +1,6 @@
 package com.hugo.mota.projectmanagementcreation.config.secutiry;
 
+import com.hugo.mota.projectmanagementcreation.service.mongo.UserService;
 import org.keycloak.adapters.springboot.KeycloakSpringBootConfigResolver;
 import org.keycloak.adapters.springsecurity.KeycloakConfiguration;
 import org.keycloak.adapters.springsecurity.authentication.KeycloakAuthenticationProvider;
@@ -34,10 +35,13 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
     };
 
     @Autowired
-    private Environment env;
+    Environment env;
 
     @Autowired
-    private JWTUtil jwtUtil;
+    JWTUtil jwtUtil;
+
+    @Autowired
+    UserService userService;
 
     @Autowired
     protected void configureGlobal(AuthenticationManagerBuilder auth) throws Exception {
@@ -66,11 +70,14 @@ public class SecurityConfig extends KeycloakWebSecurityConfigurerAdapter {
                 //.antMatchers(HttpMethod.POST, PUBLIC_MATCHERS_POST).permitAll()
                 //.antMatchers(HttpMethod.GET, PUBLIC_MATCHERS_GET).permitAll()
                 //.antMatchers(PUBLIC_MATCHERS).permitAll()
-                .antMatchers(HttpMethod.GET, "/projects").hasAnyRole("ADMIN")
+                .antMatchers(HttpMethod.POST, "/projects").hasAnyRole("CREATION")
+                .antMatchers(HttpMethod.PUT, "/projects").hasAnyRole("CREATION")
+                .antMatchers(HttpMethod.DELETE, "/projects/{id}").hasAnyRole("CREATION")
+                .antMatchers(HttpMethod.GET, "/projects/**").hasAnyRole("VIEWER")
                 .anyRequest().authenticated();
                 //.anyRequest().permitAll();
 
-        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil));
+        http.addFilter(new JWTAuthorizationFilter(authenticationManager(), jwtUtil, userService));
     }
 
     /*@Autowired

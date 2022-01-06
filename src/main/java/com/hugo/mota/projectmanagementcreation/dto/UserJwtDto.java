@@ -6,8 +6,6 @@ import lombok.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
 @Builder
 @Data
 @NoArgsConstructor
@@ -21,10 +19,55 @@ public class UserJwtDto {
     private String family_name;
     private UserJwtRealmAccess realm_access;
 
-    @Getter
-    @Setter
     public static class UserJwtRealmAccess {
         private List<String> roles = new ArrayList<>();
+
+        public List<String> getRoles() {
+            return roles;
+        }
+
+        public void setRoles(List<String> roles) {
+            this.roles = roles;
+        }
     }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPreferred_username() {
+        return preferred_username;
+    }
+
+    public void setPreferred_username(String preferred_username) {
+        this.preferred_username = preferred_username;
+    }
+
+    public String getGiven_name() {
+        return given_name;
+    }
+
+    public void setGiven_name(String given_name) {
+        this.given_name = given_name;
+    }
+
+    public String getFamily_name() {
+        return family_name;
+    }
+
+    public void setFamily_name(String family_name) {
+        this.family_name = family_name;
+    }
+
+    public UserJwtRealmAccess getRealm_access() {
+        return realm_access;
+    }
+
+    public void setRealm_access(UserJwtRealmAccess realm_access) {
+        this.realm_access = realm_access;
+    }
 }

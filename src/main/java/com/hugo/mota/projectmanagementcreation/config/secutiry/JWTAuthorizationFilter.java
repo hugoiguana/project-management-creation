@@ -1,6 +1,7 @@
 package com.hugo.mota.projectmanagementcreation.config.secutiry;
 
 import com.hugo.mota.projectmanagementcreation.dto.UserJwtDto;
+import com.hugo.mota.projectmanagementcreation.service.mongo.UserService;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
@@ -13,10 +14,12 @@ import java.io.IOException;
 public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
 
     JWTUtil jwtUtil;
+    UserService userService;
 
-    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil) {
+    public JWTAuthorizationFilter(AuthenticationManager authenticationManager, JWTUtil jwtUtil, UserService userService) {
         super(authenticationManager);
         this.jwtUtil = jwtUtil;
+        this.userService = userService;
     }
 
     @Override
@@ -25,6 +28,7 @@ public class JWTAuthorizationFilter extends BasicAuthenticationFilter {
                                     FilterChain chain) throws IOException, ServletException {
         String token = SecurityUtil.getTokenBearerFromHeaderRequest(request);
         UserJwtDto userJwtDto = jwtUtil.convertTokenToUserJwtDto(token);
+        userService.saveUser(userJwtDto);
         chain.doFilter(request, response);
     }
 

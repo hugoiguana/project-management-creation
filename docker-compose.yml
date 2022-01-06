@@ -12,7 +12,7 @@ services:
       environment:
         MONGO_INITDB_ROOT_USERNAME: root
         MONGO_INITDB_ROOT_PASSWORD: 123456789
-        MONGO_INITDB_DATABASE: project-management-security-access-control
+        MONGO_INITDB_DATABASE: project-management-data-user-mongodb
 
 
     project-management-creation-db-my-sql:
